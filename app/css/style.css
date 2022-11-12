@@ -1,0 +1,52 @@
+.container {
+  width: 800px;
+  margin: 0 auto;
+}
+
+.foot-wrapper {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.item {
+  border-bottom: 2px solid #d3d3d3;
+  padding: 20px 0 20px;
+  display: flex;
+}
+
+.label-item {
+ width: 200px;
+}
+
+.label-required {
+  color: red;
+  font-weight: bold;
+}
+
+input[type="text"],
+textarea {
+  border: solid 0.5px;
+}
+
+.item input:focus, .item textarea:focus{
+  box-shadow: 0 0 5px 1px #2078b9;
+  outline: none;
+}
+
+.btn {
+  display:inline-block;
+  cursor: pointer;
+  padding: 10px 100px;
+  color: white;
+  background-color: #2078b9;
+  border: none;
+  border-radius: 5px;
+}
+
+.btn:hover {
+  opacity: 0.8;
+}
+
+.gender {
+  padding-right: 50px; 
+}
