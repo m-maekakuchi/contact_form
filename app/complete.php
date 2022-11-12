@@ -7,6 +7,7 @@
   <title>お問い合わせ</title>
 </head>
 <body>
-  
+  登録できました。
+  少々お待ちください。
 </body>
 </html>

@@ -1,4 +1,7 @@
 .container {
+  font-family: "Hiragino Kaku Gothic ProN";
+  font-size: 20px;
+  color: #5f5d60;
   width: 800px;
   margin: 0 auto;
 }
@@ -8,14 +11,22 @@
   margin-top: 30px;
 }
 
-.item {
+.form-items {
   border-bottom: 2px solid #d3d3d3;
-  padding: 20px 0 20px;
+}
+
+.item-pair {
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  padding: 20px 0;
   display: flex;
 }
 
 .label-item {
- width: 200px;
+ width: 300px;
 }
 
 .label-required {
@@ -23,30 +34,38 @@
   font-weight: bold;
 }
 
-input[type="text"],
+input,
 textarea {
-  border: solid 0.5px;
+  border: solid 0.5px #acaaad;;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 15px;
 }
 
-.item input:focus, .item textarea:focus{
-  box-shadow: 0 0 5px 1px #2078b9;
+input:focus[type="text"], textarea:focus{
+  box-shadow: 0 0 5px 1px #00FF99;
   outline: none;
+}
+
+.gender {
+  padding-right: 50px; 
+}
+
+a {
+  text-decoration: none;
 }
 
 .btn {
   display:inline-block;
   cursor: pointer;
   padding: 10px 100px;
-  color: white;
-  background-color: #2078b9;
+  font-size: 20px;
+  color: #5f5d60;
+  background-color: #66FF99;
   border: none;
   border-radius: 5px;
 }
 
 .btn:hover {
   opacity: 0.8;
-}
-
-.gender {
-  padding-right: 50px; 
 }
