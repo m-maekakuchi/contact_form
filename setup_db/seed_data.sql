@@ -1,1 +1,1 @@
-INSERT INTO inquiry(name, kana, tel, gender, email, confirm_mail, content) VALUES ('前角地毬衣', 'マエカクチマリエ', '090-1234-5678', 1, 'hoge@gmail.com', 'hoge@gmail.com', '商品はいつ届く予定ですか？');
+INSERT INTO contact(name, kana, tel, gender, email, confirmEmail, content) VALUES ('前角地毬衣', 'マエカクチマリエ', '090-1234-5678', 1, 'hoge@gmail.com', 'hoge@gmail.com', '商品はいつ届く予定ですか？');

@@ -6,7 +6,13 @@
       '/^[a-zA-Z0-9_.+-]+[@][a-zA-Z0-9.-]+$/'          //emailの正規表現パターン
     ];
     
-    //空文字チェック
+  /**
+   * 空文字チェックのメソッド
+   *
+   * @param string $para
+   *
+   * @return boolean
+  */
     public function checkEmpty(string $para) {
       if (empty($para)) {
         //未入力
@@ -17,7 +23,14 @@
       }
     }
     
-    //パターンチェック
+  /**
+   * パターンチェックのメソッド
+   *
+   * @param int $flg 配列$patternListのインデックス番号
+   *        string $para
+   *
+   * @return boolean
+  */
     public function checkPattern(int $flg, string $para) {
       if (!preg_match($this->patternList[$flg], $para)) {
         //パターンに一致しない
@@ -28,7 +41,13 @@
       }
     }
 
-    //全角文字チェック
+  /**
+   * 全角文字チェックのメソッド
+   *
+   * @param string $para
+   *
+   * @return boolean
+  */
     public function checkStrWidth(string $para) {
       if (mb_strlen($para) !== mb_strwidth($para)) {
         //全角文字が含まれている
