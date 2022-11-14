@@ -113,6 +113,7 @@
           require_once('contact.php');
         }
       } else if ($btn === "toComplete") {
+        //データベースに接続して入力データを登録
         $contactModel = new ContactModel();
         $insertRow = $contactModel->insertInputData($inputData);
         require_once('complete.php');
