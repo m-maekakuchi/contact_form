@@ -16,28 +16,28 @@
     <form action="index.php" method="post">
       <div class="form-items item-pair">
         <div class="item">
-          <label class="label-item">名前<span class="label-required">*</span></label>
+          <label class="label-item">名前&emsp;<span class="label-required">必須</span></label>
           <?= $inputData['name'] ?>
         </div>
         <div class="item">
-          <label class="label-item">フリガナ<span class="label-required">*</span></label>
+          <label class="label-item">フリガナ&emsp;<span class="label-required">必須</span></label>
           <?= $inputData['kana'] ?>
         </div>
       </div>
       <div class="form-items item">
-        <label class="label-item">電話番号<span class="label-required">*</span></label>
+        <label class="label-item">電話番号&emsp;<span class="label-required">必須</span></label>
         <?= $inputData['tel'] ?>
       </div>
       <div class="form-items item">
-        <label class="label-item">性別<span class="label-required">*</span></label>
+        <label class="label-item">性別&emsp;<span class="label-required">必須</span></label>
         <?= $_SESSION['confirmGender'] ?>
       </div>
       <div class="form-items item">
-        <label class="label-item">メールアドレス<span class="label-required">*</span></label>
+        <label class="label-item">メールアドレス&emsp;<span class="label-required">必須</span></label>
         <?= $inputData['email'] ?>
       </div>
       <div class="form-items item">
-        <label class="label-item">お問い合わせ<span class="label-required">*</span></label>
+        <label class="label-item">お問い合わせ&emsp;<span class="label-required">必須</span></label>
         <?= $_SESSION['confirmContent'] ?>
       </div>
       <div class="btn-wrapper">

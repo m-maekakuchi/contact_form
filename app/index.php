@@ -15,11 +15,11 @@
     }
 
     //入力データがセッションに登録されていれば変数$inputdataに代入
-    if (isset($_SESSION['inputData'])) {
-      $inputData = $_SESSION['inputData'];
-    } else {
-      $inputData = [];
-    }
+    // if (isset($_SESSION['inputData'])) {
+    //   $inputData = $_SESSION['inputData'];
+    // } else {
+    //   $inputData = [];
+    // }
     
     //正しいパラメータ名を受け取れなかった場合はお問い合わせフォームにリダイレクト
     if (!empty($btn)) {
@@ -42,7 +42,8 @@
           header('Location: contact.php');
           exit();
         }
-
+        
+        //入力データのエスケープ
         $name         = escape($_POST['name']);
         $kana         = escape($_POST['kana']);
         $tel          = escape($_POST['tel']);
@@ -51,76 +52,18 @@
         $content      = escape($_POST['content']);
         $gender       = $_POST['gender'];
 
-        $errorMsg = validateForm($name, $kana, $tel, $gender, $email, $confirmEmail, $content);
+        //入力データのバリデーション
+        $val = new Validation();
+        $errorMsg = $val->validateForms($name, $kana, $tel, $gender, $email, $confirmEmail, $content);
 
-        if ($errorMsg['name'] !== "") $inputData['name'] = $name;
-        if ($errorMsg['kana'] !== "") $inputData['kana'] = $kana;
-        if ($errorMsg['tel'] !== "") $inputData['tel'] = $tel;
-        if ($errorMsg['gender'] !== "") $inputData['gender'] = $gender;
-        if ($errorMsg['email'] !== "") $inputData['email'] = $email;
-        if ($errorMsg['confirmEmail'] !== "") $inputData['confirmEmail'] = $confirmEmail;
-        if ($errorMsg['content'] !== "") $inputData['content'] = $content;
+        $inputData['name'] = (!isset($errorMsg['name'])) ? $name : "";
+        $inputData['kana'] = (!isset($errorMsg['kana'])) ? $kana : "";
+        $inputData['tel']  = (!isset($errorMsg['tel'])) ? $tel : "";
+        $inputData['email']  = (!isset($errorMsg['email'])) ? $email : "";
+        $inputData['confirmEmail']  = (!isset($errorMsg['confirmEmail'])) ? $confirmEmail : "";
+        $inputData['content']  = (!isset($errorMsg['content'])) ? $content : "";
+        if (!isset($errorMsg['gender'])) $inputData['gender'] = $gender;
 
-
-        // //名前のバリデーション
-        // if (checkEmpty($name)) {
-        //   $errorMsg['name'] = Message::$VAL_NAME_EMPTY;
-        // } else {
-        //   $inputData['name'] = $name;
-        // }
-
-        // //フリガナのバリデーション
-        // if (checkEmpty($kana)) {
-        //   $errorMsg['kana'] = Message::$VAL_KANA_EMPTY;
-        // } else {
-        //   $inputData['kana'] = $kana;
-        // }
-
-        // //電話番号のバリデーション
-        // if (checkEmpty($tel)) {
-        //   $errorMsg['tel'] = Message::$VAL_TEL_EMPTY;
-        // } else if (checkStrWidth($tel)) {
-        //   $errorMsg['tel'] = Message::$VAL_TEL_FULL_WIDTH;
-        // } else if (checkPattern(0, $tel)) {
-        //   $errorMsg['tel'] = Message::$VAL_TEL_NOT_CORRECT;
-        // } else {
-        //   $inputData['tel'] = $tel;
-        // }
-
-        // //性別のバリデーション
-        // if ($gender !== 1 || $gender !== 2) {
-        //   $errorMsg['gender'] = Message::$VAL_GENDER_NOT_COLLECT;
-        // } else {
-        //   $inputData['gender'] = $gender;
-        // }
-
-        // //メールアドレスのバリデーション
-        // if (checkEmpty($email) && checkEmpty($confirmEmail)) {
-        //   $errorMsg['email'] = Message::$VAL_EMAIL_EMPTY;
-        //   $errorMsg['confirmEmail'] = Message::$VAL_CONFIRM_EMAIL_EMPTY;
-        // } else if (checkEmpty($email)) {
-        //   $errorMsg['email'] = Message::$VAL_EMAIL_EMPTY;
-        // } else if (checkEmpty($confirmEmail)) {
-        //   $errorMsg['confirmEmail'] = Message::$VAL_CONFIRM_EMAIL_EMPTY;
-        // } else if (checkStrWidth($email) || checkStrWidth($confirmEmail)) {
-        //   $errorMsg['confirmEmail'] = Message::$VAL_EMAIL_FULL_WIDTH;
-        // } else if (checkPattern(1, $email)) {
-        //   $errorMsg['confirmEmail'] = Message::$VAL_EMAIL_NOT_CORRECT;
-        // } else if ($email !== $confirmEmail) {
-        //   $errorMsg['confirmEmail'] = Message::$VAL_EMAIL_NOT_EQUAL;
-        // } else {
-        //   $inputData['email'] = $email;
-        //   $inputData['confirmEmail'] = $confirmEmail;
-        // }
-
-        // //お問い合わせ内容のバリデーション
-        // if (checkEmpty($content)) {
-        //   $errorMsg['content'] = Message::$VAL_CONTENT_EMPTY;
-        // } else {
-        //   $inputData['content'] = $content;
-        // }
-
-        //入力されたデータをセッションに登録
         $_SESSION['inputData'] = $inputData;
         $_SESSION['errorMsg'] = $errorMsg;
 

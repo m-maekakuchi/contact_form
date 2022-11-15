@@ -21,7 +21,7 @@
     <form action="index.php" method="post">
       <div class="form-items item-pair">
         <div class="item">
-          <label class="label-item">名前<span class="label-required">*</span></label>
+          <label class="label-item">名前&emsp;<span class="label-required">必須</span></label>
           <div class="item-column">
             <input
               type="text"
@@ -34,7 +34,7 @@
           </div>
         </div>
         <div class="item">
-          <label class="label-item">フリガナ<span class="label-required">*</span></label>
+          <label class="label-item">フリガナ&emsp;<span class="label-required">必須</span></label>
           <div class="item-column">
             <input
               type="text"
@@ -48,7 +48,7 @@
         </div>
       </div>
       <div class="form-items item">
-        <label class="label-item">電話番号<span class="label-required">*</span></label>
+        <label class="label-item">電話番号&emsp;<span class="label-required">必須</span></label>
         <div class="item-column">
           <input 
             type="text"
@@ -62,7 +62,7 @@
         </div>
       </div>
       <div class="form-items item">
-        <label class="label-item">性別<span class="label-required">*</span></label>
+        <label class="label-item">性別&emsp;<span class="label-required">必須</span></label>
         <div class="item-column">
           <div>
             <input
@@ -88,7 +88,7 @@
       </div>
       <div class="form-items item-pair">
         <div class="item">
-          <label class="label-item">メールアドレス<span class="label-required">*</span></label>
+          <label class="label-item">メールアドレス&emsp;<span class="label-required">必須</span></label>
           <div class="item-column">
             <input
               type="text"
@@ -102,7 +102,7 @@
           </div>
         </div>
         <div class="item">
-          <label class="label-item">メールアドレス確認用<span class="label-required">*</span></label>
+          <label class="label-item">メールアドレス確認用&emsp;<span class="label-required">必須</span></label>
           <div class="item-column">
             <input
               type="text"
@@ -117,7 +117,7 @@
         </div>
       </div>
       <div class="form-items item">
-        <label class="label-item">お問い合わせ<span class="label-required">*</span></label>
+        <label class="label-item">お問い合わせ&emsp;<span class="label-required">必須</span></label>
         <div class="item-column">
           <textarea name="content" id="content" cols="50" rows="10"><?php echo isset($inputData['content']) ? $inputData['content'] : ""; ?></textarea>
           <?= isset($errorMsg['content']) ? "<span class ='error'>{$errorMsg['content']}</span>" : ""; ?>

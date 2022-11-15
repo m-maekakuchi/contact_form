@@ -1,22 +1,12 @@
 <?php
 
-  $patternList = 
+class Validation {
+
+  private $patternList = 
   [
     '/^[0-9]{2,4}-[0-9]{2,4}-[0-9]{3,4}$/',          //telの正規表現パターン
     '/^[a-zA-Z0-9_.+-]+[@][a-zA-Z0-9.-]+$/'          //emailの正規表現パターン
   ];
-    
-  /**
-   * 空文字チェックのメソッド
-   *
-   * @param string $para
-   *
-   * @return boolean
-  */
-  function checkEmpty($para) {
-    //未入力ならtrueを返す
-    return empty($para);
-  }
     
   /**
    * パターンチェックのメソッド
@@ -26,15 +16,10 @@
    *
    * @return boolean
   */
-  function checkPattern($flg, $para)
+  public function checkPattern($flg, $para)
   {
-    $patternList = 
-    [
-      '/^[0-9]{2,4}-[0-9]{2,4}-[0-9]{3,4}$/',          //telの正規表現パターン
-      '/^[a-zA-Z0-9_.+-]+[@][a-zA-Z0-9.-]+$/'          //emailの正規表現パターン
-    ];
     //正規表現パターンに一致しない
-    return !preg_match($patternList[$flg], $para);
+    return !preg_match($this->patternList[$flg], $para);
   }
 
   /**
@@ -44,13 +29,27 @@
    *
    * @return boolean
   */
-  function checkStrWidth($para)
+  public function checkStrWidth($para)
   {
     //全角文字が含まれている
     return mb_strlen($para) !== mb_strwidth($para);
   }
 
-  function validateForm (
+
+  /**
+   * 全角文字チェックのメソッド
+   *
+   * @param string $name
+   *        string $kana
+   *        string $tel
+   *        string $gender
+   *        string $email
+   *        string $confirmEmail
+   *        string $content
+   *
+   * @return array エラーメッセージ
+  */
+  public function validateForms (
     $name,
     $kana,
     $tel,
@@ -63,62 +62,49 @@
     $errorMsg = [];
 
     //名前のバリデーション
-    if (checkEmpty($name)) {
+    if (empty($name)) {
       $errorMsg['name'] = Message::$VAL_NAME_EMPTY;
-    } else {
-      $inputData['name'] = $name;
     }
 
     //フリガナのバリデーション
-    if (checkEmpty($kana)) {
+    if (empty($kana)) {
       $errorMsg['kana'] = Message::$VAL_KANA_EMPTY;
-    } else {
-      $inputData['kana'] = $kana;
     }
 
     //電話番号のバリデーション
-    if (checkEmpty($tel)) {
+    if (empty($tel)) {
       $errorMsg['tel'] = Message::$VAL_TEL_EMPTY;
-    } else if (checkStrWidth($tel)) {
+    } else if ($this->checkStrWidth($tel)) {
       $errorMsg['tel'] = Message::$VAL_TEL_FULL_WIDTH;
-    } else if (checkPattern(0, $tel)) {
+    } else if ($this->checkPattern(0, $tel)) {
       $errorMsg['tel'] = Message::$VAL_TEL_NOT_CORRECT;
-    } else {
-      $inputData['tel'] = $tel;
     }
 
     //性別のバリデーション
-    if ($gender !== 1 || $gender !== 2) {
+    if ($gender !== "1" && $gender !== "2") {
       $errorMsg['gender'] = Message::$VAL_GENDER_NOT_COLLECT;
-    } else {
-      $inputData['gender'] = $gender;
     }
 
-    //メールアドレスのバリデーション
-    if (checkEmpty($email) && checkEmpty($confirmEmail)) {
+    if (empty($email)) {
       $errorMsg['email'] = Message::$VAL_EMAIL_EMPTY;
+    } else if (empty($confirmEmail)) {
       $errorMsg['confirmEmail'] = Message::$VAL_CONFIRM_EMAIL_EMPTY;
-    } else if (checkEmpty($email)) {
-      $errorMsg['email'] = Message::$VAL_EMAIL_EMPTY;
-    } else if (checkEmpty($confirmEmail)) {
-      $errorMsg['confirmEmail'] = Message::$VAL_CONFIRM_EMAIL_EMPTY;
-    } else if (checkStrWidth($email) || checkStrWidth($confirmEmail)) {
+    } else if ($this->checkStrWidth($email)) {
+      $errorMsg['email'] = "";
       $errorMsg['confirmEmail'] = Message::$VAL_EMAIL_FULL_WIDTH;
-    } else if (checkPattern(1, $email)) {
+    } else if ($this->checkPattern(1, $email)) {
+      $errorMsg['email'] = "";
       $errorMsg['confirmEmail'] = Message::$VAL_EMAIL_NOT_CORRECT;
     } else if ($email !== $confirmEmail) {
+      $errorMsg['email'] = "";
       $errorMsg['confirmEmail'] = Message::$VAL_EMAIL_NOT_EQUAL;
-    } else {
-      $inputData['email'] = $email;
-      $inputData['confirmEmail'] = $confirmEmail;
     }
 
     //お問い合わせ内容のバリデーション
-    if (checkEmpty($content)) {
+    if (empty($content)) {
       $errorMsg['content'] = Message::$VAL_CONTENT_EMPTY;
-    } else {
-      $inputData['content'] = $content;
     }
 
     return $errorMsg;
   }
+}
