@@ -28,7 +28,7 @@
               name="name"
               id="name"
               size="30"
-              value="<?php echo isset($inputData['name']) ? $inputData['name'] : ""; ?>"
+              value="<?= isset($inputData['name']) ? $inputData['name'] : ""; ?>"
             />
             <?= isset($errorMsg['name']) ? "<span class ='error'>{$errorMsg['name']}</span>" : ""; ?>
           </div>
@@ -41,7 +41,7 @@
               name="kana"
               id="kana"
               size="30"
-              value="<?php echo isset($inputData['kana']) ? $inputData['kana'] : ""; ?>"
+              value="<?= isset($inputData['kana']) ? $inputData['kana'] : ""; ?>"
             />
             <?= isset($errorMsg['kana']) ? "<span class ='error'>{$errorMsg['kana']}</span>" : ""; ?>
           </div>
@@ -56,7 +56,7 @@
             id="tel"
             size="30"
             placeholder="000-0000-0000"
-            value="<?php echo isset($inputData['tel']) ? $inputData['tel'] : ""; ?>"
+            value="<?= isset($inputData['tel']) ? $inputData['tel'] : ""; ?>"
           />
           <?= isset($errorMsg['tel']) ? "<span class ='error'>{$errorMsg['tel']}</span>" : ""; ?>
         </div>
@@ -96,7 +96,7 @@
               id="email"
               size="50"
               placeholder="example@gmail.com"
-              value="<?php echo isset($inputData['email']) ? $inputData['email'] : ""; ?>"
+              value="<?= isset($inputData['email']) ? $inputData['email'] : ""; ?>"
             />
             <?= isset($errorMsg['email']) ? "<span class ='error'>{$errorMsg['email']}</span>" : ""; ?>
           </div>
@@ -110,7 +110,7 @@
               id="confirmEmail"
               size="50"
               placeholder="example@gmail.com"
-              value="<?php echo isset($inputData['confirmEmail']) ? $inputData['confirmEmail'] : ""; ?>"
+              value="<?= isset($inputData['confirmEmail']) ? $inputData['confirmEmail'] : ""; ?>"
             />
             <?= isset($errorMsg['confirmEmail']) ? "<span class ='error'>{$errorMsg['confirmEmail']}</span>" : ""; ?>
           </div>
@@ -119,7 +119,7 @@
       <div class="form-items item">
         <label class="label-item">お問い合わせ&emsp;<span class="label-required">必須</span></label>
         <div class="item-column">
-          <textarea name="content" id="content" cols="50" rows="10"><?php echo isset($inputData['content']) ? $inputData['content'] : ""; ?></textarea>
+          <textarea name="content" id="content" cols="50" rows="10"><?= isset($inputData['content']) ? $inputData['content'] : ""; ?></textarea>
           <?= isset($errorMsg['content']) ? "<span class ='error'>{$errorMsg['content']}</span>" : ""; ?>
         </div>
       </div>

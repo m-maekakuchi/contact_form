@@ -6,12 +6,15 @@
   require_once('utilities/ContactModel.php');
   require_once('utilities/functions.php');
 
+  
   try {
     $btn = "";
     $inputData;
 
     if (array_key_exists('btn', $_POST)) {
       $btn = $_POST['btn'];
+    } else if (array_key_exists('btn', $_GET)) {
+      $btn = $_GET['btn'];
     }
 
     //入力データがセッションに登録されていれば変数$inputdataに代入
@@ -83,8 +86,12 @@
         }
       } else if ($btn === "toComplete") {
         $contactModel = new ContactModel();
-        $insertRow = $contactModel->insertInputData($inputData);
+        // $insertRow = $contactModel->insertInputData($inputData);
         require_once('complete.php');
+      } else if ($btn === "back") {
+        $_SESSION = array();
+        session_destroy();
+        require_once('contact.php');
       }
     } else {
       require_once('contact.php');

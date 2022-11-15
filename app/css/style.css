@@ -8,10 +8,11 @@
 
 .msg-wrapper {
   text-align: center;
-  background-color: #caf9d9;
+  background-color: #EDEDED;
   border: solid 0.5px #acaaad;
   border-radius: 20px;
   padding: 20px 30px;
+  margin-top: 50px;
 }
 
 .btn-wrapper {
