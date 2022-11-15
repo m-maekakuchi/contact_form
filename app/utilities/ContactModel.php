@@ -37,7 +37,7 @@ class ContactModel {
    *
    * @return int 登録されたレコード数
   */
-  public function insertInputData(array $data) {
+  public function insertInputData($data) {
     $sql = "INSERT INTO contact(name, kana, tel, gender, email, confirmEmail, content)
             VALUES(?, ?, ?, ?, ?, ?, ?);";
     $stt = $this->db->prepare($sql);

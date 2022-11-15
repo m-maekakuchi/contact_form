@@ -33,8 +33,18 @@
   display: flex;
 }
 
+.item-column {
+  display: flex;
+  flex-direction: column;
+}
+
 .label-item {
  width: 300px;
+}
+
+.error {
+  color: red;
+  font-size: 18px;
 }
 
 .label-required {
