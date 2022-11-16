@@ -5,6 +5,7 @@
   //二重送信防止用トークンの発行
   $token = uniqid('', true);
   $_SESSION['token'] = $token;
+  echo $token;
 ?>
 
 <!DOCTYPE html>
