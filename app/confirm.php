@@ -1,5 +1,10 @@
 <?php
+  session_start();
   $inputData = $_SESSION['inputData'];
+
+  //二重送信防止用トークンの発行
+  $token = uniqid('', true);
+  $_SESSION['token'] = $token;
 ?>
 
 <!DOCTYPE html>
@@ -43,6 +48,7 @@
       <div class="btn-wrapper">
         <button type="submit" class="btn">送信</button>
         <input type="hidden" name="btn" value="toComplete">
+        <input type="hidden" name="token" value="<?= $token ?>">
         <a href="index.php" class="btn">戻る</a>
       </div>
     </form>

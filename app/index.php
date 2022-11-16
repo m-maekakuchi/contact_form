@@ -80,21 +80,50 @@
           //改行コードを変換した文字列を変数に代入
           $_SESSION['confirmContent'] = str_replace("\n", "<br>", $inputData['content']);
 
-          require_once('confirm.php');
+          // require_once('confirm.php');
+          header('Location: confirm.php');
+          exit();
         } else {
-          require_once('contact.php');
+          // require_once('contact.php');
+          header('Location: contact.php');
+          exit();
         }
       } else if ($btn === "toComplete") {
+        //POSTされたトークンを取得
+        $postToken = isset($_POST['toen']) ? $_POST["token"] : "";
+        echo $_POST['token'];
+        //セッション変数のトークンを取得
+        $sessionToken = isset($_SESSION['toen']) ? $_SESSION["token"] : "";
+        echo $_SESSION['token'];
+
+        //セッション変数のトークンを削除
+        unset($_SESSION["token"]);
+
+
+        if($postToken !== "" && $postToken === $sessionToken) {
+          echo "DB登録GO!";
+        } else {
+          echo "不正な登録処理です";
+        }
+
+
         $contactModel = new ContactModel();
         // $insertRow = $contactModel->insertInputData($inputData);
-        require_once('complete.php');
+        // require_once('complete.php');
+        header('Location: complete.php');
+        exit();
       } else if ($btn === "back") {
         $_SESSION = array();
         session_destroy();
-        require_once('contact.php');
+        // require_once('contact.php');
+        header('Location: contact.php');
+        exit();
       }
     } else {
-      require_once('contact.php');
+      echo 103;
+      // require_once('contact.php');
+      header('Location: contact.php');
+      exit();
     }
   } catch (PDOException $e) {
     die ("データベースエラー:{$e->getMessage()}");
