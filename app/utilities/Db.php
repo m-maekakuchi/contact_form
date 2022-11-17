@@ -2,37 +2,23 @@
 
 require_once('Conf.php');
 
-class ContactModel {
+class Db {
   /**
    * PDOオブジェクト
    *
    * @var PDO
   */
-  private $name;
-  private $kana;
-  private $tel;
-  private $gender;
-  private $email;
-  private $confirmEmail;
-  private $content;
+  private $db;
 
   /**
-   * 
+   * データベースへ接続
   */
-  function __construct($name,
-    $kana,
-    $tel,
-    $gender,
-    $email,
-    $confirmEmail,
-    $content,) {
-    $this->$name = name;
-    $this->$kana = kana;
-    $this->$tel = tel;
-    $this->$gender = gender;
-    $this->$email = email;
-    $this->$confirmEmail = confirmEmail;
-    $this->$content = content;
+  function __construct() {
+    $dsn = Conf::DSN;
+    $user = Conf::USER;
+    $password = Conf::PASSWORD;
+    $this->db = new PDO($dsn, $user, $password);
+    $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   }
 
   /**
@@ -40,11 +26,7 @@ class ContactModel {
    *
    * @return void
   */
-  public function setName() {
-    $this->db = null;
-  }
-
-  public function getName() {
+  public function close() {
     $this->db = null;
   }
 

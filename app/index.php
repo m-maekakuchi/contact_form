@@ -3,7 +3,7 @@
 
   require_once('utilities/Validation.php');
   require_once('utilities/Message.php');
-  require_once('utilities/ContactModel.php');
+  require_once('utilities/Db.php');
   require_once('utilities/functions.php');
 
   try {
@@ -15,7 +15,7 @@
       $btn = $_GET['btn'];
     }
 
-    //正しいパラメータ名を受け取れなかった場合はお問い合わせフォームにリダイレクト
+    //正しいパラメータ名で受け取れなかった場合はお問い合わせフォームにリダイレクト
     if (!empty($btn)) {
       if ($btn === "toConfirm") {
         if (
@@ -80,17 +80,15 @@
       } else if ($btn === "toComplete") {
         //POSTされたトークンを取得
         $postToken = isset($_POST['token']) ? $_POST["token"] : "";
-
         //セッション変数のトークンを取得
         $sessionToken = isset($_SESSION['token']) ? $_SESSION['token'] : "";
-
         //セッション変数のトークンを削除
         unset($_SESSION['token']);
 
         $inputData = $_SESSION['inputData'];
         if($postToken !== "" && $postToken === $sessionToken) {
-          $contactModel = new ContactModel();
-          $insertRow = $contactModel->insertInputData($inputData);
+          $db = new Db();
+          $insertRow = $db->insertInputData($inputData);
         }
 
         header('Location: complete.php');
