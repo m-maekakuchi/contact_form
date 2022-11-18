@@ -3,7 +3,8 @@
 
   require_once('utilities/Validation.php');
   require_once('utilities/Message.php');
-  require_once('utilities/Db.php');
+  require_once('utilities/Database.php');
+  require_once('utilities/ContactModel.php');
   require_once('utilities/functions.php');
 
   try {
@@ -50,14 +51,25 @@
         $val = new Validation();
         $errorMsg = $val->validateForms($name, $kana, $tel, $gender, $email, $confirmEmail, $content);
 
-        $inputData['name']          = (!isset($errorMsg['name'])) ? $name : "";
-        $inputData['kana']          = (!isset($errorMsg['kana'])) ? $kana : "";
-        $inputData['tel']           = (!isset($errorMsg['tel'])) ? $tel : "";
-        $inputData['email']         = (!isset($errorMsg['email'])) ? $email : "";
-        $inputData['confirmEmail']  = (!isset($errorMsg['confirmEmail'])) ? $confirmEmail : "";
-        $inputData['content']       = (!isset($errorMsg['content'])) ? $content : "";
-        if (!isset($errorMsg['gender'])) $inputData['gender'] = $gender;
+        // $inputName         = !isset($errorMsg['name']) ? $name : "";
+        // $inputKana         = !isset($errorMsg['kana']) ? $kana : "";
+        // $inputTel          = !isset($errorMsg['tel']) ? $tel : "";
+        // $inputGender       = !isset($errorMsg['gender']) ? $gender : "1";
+        // $inputEmail        = !isset($errorMsg['email']) ? $email : "";
+        // $inputConfirmEmail = !isset($errorMsg['confirmEmail']) ? $confirmEmail : "";
+        // $inputContent      = !isset($errorMsg['content']) ? $content : "";
+        // $model = new ContactModel($inputName, $inputKana, $inputTel, $inputGender, $inputEmail, $inputConfirmEmail, $inputContent);
+        // $_SESSION['model'] = serialize($model);
+        // echo $model->getName();
 
+        $inputData['name']         = !isset($errorMsg['name']) ? $name : "";
+        $inputData['kana']         = !isset($errorMsg['kana']) ? $kana : "";
+        $inputData['tel']          = !isset($errorMsg['tel']) ? $tel : "";
+        $inputData['gender']       = !isset($errorMsg['gender']) ? $gender : "1";
+        $inputData['email']        = !isset($errorMsg['email']) ? $email : "";
+        $inputData['confirmEmail'] = !isset($errorMsg['confirmEmail']) ? $confirmEmail : "";
+        $inputData['content']      = !isset($errorMsg['content']) ? $content : "";
+        
         $_SESSION['inputData'] = $inputData;
         $_SESSION['errorMsg'] = $errorMsg;
 
@@ -87,7 +99,7 @@
 
         $inputData = $_SESSION['inputData'];
         if($postToken !== "" && $postToken === $sessionToken) {
-          $db = new Db();
+          $db = new Database();
           $insertRow = $db->insertInputData($inputData);
         }
 

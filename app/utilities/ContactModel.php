@@ -1,13 +1,7 @@
 <?php
 
-require_once('Conf.php');
-
 class ContactModel {
-  /**
-   * PDOオブジェクト
-   *
-   * @var PDO
-  */
+  
   private $name;
   private $kana;
   private $tel;
@@ -17,56 +11,95 @@ class ContactModel {
   private $content;
 
   /**
-   * 
+   * プロパティの初期化
   */
-  function __construct($name,
+  function __construct(
+    $name,
     $kana,
     $tel,
     $gender,
     $email,
     $confirmEmail,
-    $content,) {
-    $this->$name = name;
-    $this->$kana = kana;
-    $this->$tel = tel;
-    $this->$gender = gender;
-    $this->$email = email;
-    $this->$confirmEmail = confirmEmail;
-    $this->$content = content;
+    $content
+  )
+  {
+    $this->name = $name;
+    $this->kana = $kana;
+    $this->tel = $tel;
+    $this->gender = $gender;
+    $this->email = $email;
+    $this->confirmEmail = $confirmEmail;
+    $this->content = $content;
   }
 
-  /**
-   * データベースとの通信を切断するメソッド
-   *
-   * @return void
-  */
-  public function setName() {
-    $this->db = null;
+
+  public function getName()
+  {
+    return $this->name;
   }
 
-  public function getName() {
-    $this->db = null;
+  public function getKana()
+  {
+    return $this->kana;
   }
 
-  /**
-   * inquiry表に入力データを登録するメソッド
-   *
-   * @param array $data 入力されたデータ
-   *
-   * @return int 登録されたレコード数
-  */
-  public function insertInputData($data) {
-    $sql = "INSERT INTO contact(name, kana, tel, gender, email, confirmEmail, content)
-            VALUES(?, ?, ?, ?, ?, ?, ?);";
-    $stt = $this->db->prepare($sql);
-    $stt->bindValue(1, $data['name']);
-		$stt->bindValue(2, $data['kana']);
-		$stt->bindValue(3, $data['tel']);
-		$stt->bindValue(4, $data['gender']);
-		$stt->bindValue(5, $data['email']);
-		$stt->bindValue(6, $data['confirmEmail']);
-		$stt->bindValue(7, $data['content']);
-    $stt->execute();
-    return $stt->rowCount();
+  public function getTel()
+  {
+    return $this->tel;
+  }
+
+  public function getGender()
+  {
+    return $this->gender;
+  }
+
+  public function getEmail()
+  {
+    return $this->email;
+  }
+
+  public function getConfirmEmail()
+  {
+    return $this->confirmEmail;
+  }
+
+  public function getContent()
+  {
+    return $this->content;
+  }
+
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+
+  public function setKana($kana)
+  {
+    $this->kana = $kana;
+  }
+
+  public function setTel($tel)
+  {
+    $this->tel = $tel;
+  }
+
+  public function setGender($gender)
+  {
+    $this->gender = $gender;
+  }
+
+  public function seteEmail($email)
+  {
+    $this->email = $email;
+  }
+
+  public function setConfirmEmail($ConfirmEmail)
+  {
+    $this->ConfirmEmail = $ConfirmEmail;
+  }
+
+  public function setContent($content)
+  {
+    $this->content = $content;
   }
 }

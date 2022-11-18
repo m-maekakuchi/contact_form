@@ -49,7 +49,7 @@ class Validation {
    *
    * @return array エラーメッセージ
   */
-  public function validateForms (
+  public function validateForms(
     $name,
     $kana,
     $tel,

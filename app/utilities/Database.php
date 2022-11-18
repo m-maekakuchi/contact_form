@@ -2,7 +2,7 @@
 
 require_once('Conf.php');
 
-class Db {
+class Database {
   /**
    * PDOオブジェクト
    *

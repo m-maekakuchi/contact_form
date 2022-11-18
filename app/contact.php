@@ -1,11 +1,16 @@
 <?php
   session_start();
+
   if (isset($_SESSION['inputData'])) {
     $inputData = $_SESSION['inputData'];
   }
   if (isset($_SESSION['errorMsg'])) {
     $errorMsg = $_SESSION['errorMsg'];
   }
+  // if (isset($_SESSION['model'])) {
+  //   $model = $_SESSION['model'];
+  // }
+  
 ?>
 
 <!DOCTYPE html>
