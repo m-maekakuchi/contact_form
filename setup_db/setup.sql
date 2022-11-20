@@ -2,14 +2,34 @@ DROP DATABASE IF EXISTS sample_contact;
 CREATE DATABASE sample_contact;
 USE sample_contact;
 
+DROP TABLE IF EXISTS `genders`;
+CREATE TABLE genders (
+  `type`       VARCHAR(3) UNIQUE NOT NULL,
+  `created_at` TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_at`  DATETIME   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) DEFAULT CHARSET=utf8;
+
 DROP TABLE IF EXISTS `contact`;
-CREATE TABLE contact(
-   `id`            INT          NOT NULL AUTO_INCREMENT PRIMARY KEY
-  ,`name`          VARCHAR(255) NOT NULL
-  ,`kana`          VARCHAR(255) NOT NULL
-  ,`tel`           VARCHAR(13)  NOT NULL
-  ,`gender`        INT          NOT NULL
-  ,`email`         VARCHAR(255) NOT NULL
-  ,`confirmEmail`  VARCHAR(255) NOT NULL
-  ,`content`       text
-)DEFAULT CHARSET=utf8;
+CREATE TABLE contact (
+  `id`         INT          AUTO_INCREMENT,
+  `name`       VARCHAR(255) NOT NULL,
+  `kana`       VARCHAR(255) NOT NULL,
+  `tel`        VARCHAR(13)  NOT NULL,
+  `gender`     VARCHAR(3)   NOT NULL,
+  `email`      VARCHAR(255) NOT NULL,      
+  `content`    text         NOT NULL,
+  `created_at` TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_at`  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY(gender) REFERENCES genders(type),
+  PRIMARY KEY(id)
+) DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE hobbys (
+  id            INT         AUTO_INCREMENT,
+  hobby         VARCHAR(50) NOT NULL,
+  contact_id    INT         NOT NULL,
+  `created_at`  TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_at`   DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY(id)
+) DEFAULT CHARSET=utf8;
