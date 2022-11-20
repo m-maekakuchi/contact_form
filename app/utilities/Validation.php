@@ -56,6 +56,8 @@ class Validation {
     $gender,
     $email,
     $confirmEmail,
+    $hobbys,
+    $hobbyAry,
     $content
   )
   {
@@ -81,10 +83,11 @@ class Validation {
     }
 
     //性別のバリデーション
-    if ($gender !== "1" && $gender !== "2") {
-      $errorMsg['gender'] = Message::$VAL_GENDER_NOT_COLLECT;
+    if ($gender !== '男' && $gender !== '女') {
+      $errorMsg['gender'] = Message::$VAL_INVALID_VALUE;
     }
 
+    //メールアドレスのバリデーション
     if (empty($email)) {
       $errorMsg['email'] = Message::$VAL_EMAIL_EMPTY;
     } else if (empty($confirmEmail)) {
@@ -98,6 +101,22 @@ class Validation {
     } else if ($email !== $confirmEmail) {
       $errorMsg['email'] = "";
       $errorMsg['confirmEmail'] = Message::$VAL_EMAIL_NOT_EQUAL;
+    }
+
+    //趣味のバリデーション
+    if(count($hobbys) > 0) {
+      foreach ($hobbys as $hobby) {
+        $correctNum = 0;
+        foreach ($hobbyAry as $hobbyElement) {
+          if ($hobby === $hobbyElement) {
+          $correctNum++; 
+          }
+        }
+        if($correctNum === 0) {
+          $errorMsg['hobby'] = Message::$VAL_INVALID_VALUE;
+          break;
+        }
+      }
     }
 
     //お問い合わせ内容のバリデーション

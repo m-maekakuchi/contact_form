@@ -1,6 +1,7 @@
 <?php
   session_start();
-
+  require_once('utilities/functions.php');
+  
   if (isset($_SESSION['inputData'])) {
     $inputData = $_SESSION['inputData'];
   }
@@ -10,7 +11,6 @@
   // if (isset($_SESSION['model'])) {
   //   $model = $_SESSION['model'];
   // }
-  
 ?>
 
 <!DOCTYPE html>
@@ -71,23 +71,27 @@
         <label class="label-item">性別&emsp;<span class="label-required">必須</span></label>
         <div class="item-column">
           <div>
-            <input
-              type="radio"
-              name="gender"
-              value="1"
-              id="man"
-              <?= !isset($inputData['gender']) ? "checked" : "" ?>
-              <?= isset($inputData['gender']) && $inputData['gender'] == 1 ? "checked" : "" ?>
-            >
-            <span class="gender">男性</span>
-            <input
-              type="radio"
-              name="gender"
-              value="2"
-              id="woman"
-              <?= isset($inputData['gender']) && $inputData['gender'] == 2 ? "checked" : "" ?>
-            >
-            女性
+            <label>
+              <input
+                type="radio"
+                name="gender"
+                value="男"
+                id="man"
+                <?= !isset($inputData['gender']) ? "checked" : "" ?>
+                <?= isset($inputData['gender']) && $inputData['gender'] !== '女' ? "checked" : "" ?>
+              >
+              <span class="gender">男性</span>
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="gender"
+                value="女"
+                id="woman"
+                <?= isset($inputData['gender']) && $inputData['gender'] == '女' ? "checked" : "" ?>
+              >
+              女性
+            </label>
           </div>
           <?= isset($errorMsg['gender']) ? "<span class ='error'>{$errorMsg['gender']}</span>" : "" ?>
         </div>
@@ -120,6 +124,15 @@
             />
             <?= isset($errorMsg['confirmEmail']) ? "<span class ='error'>{$errorMsg['confirmEmail']}</span>" : "" ?>
           </div>
+        </div>
+      </div>
+      <div class="form-items item">
+        <label class="label-item">趣味</label>
+        <div class="item-column">
+          <div id="hobby">
+            <?= getHtmlHobbyValue($hobbyAry); ?>
+          </div>  
+        </select>
         </div>
       </div>
       <div class="form-items item">

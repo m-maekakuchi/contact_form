@@ -35,7 +35,7 @@
       </div>
       <div class="form-items item">
         <label class="label-item">性別&emsp;<span class="label-required">必須</span></label>
-        <?= $_SESSION['confirmGender'] ?>
+        <?= $inputData['gender'] ?>
       </div>
       <div class="form-items item">
         <label class="label-item">メールアドレス&emsp;<span class="label-required">必須</span></label>

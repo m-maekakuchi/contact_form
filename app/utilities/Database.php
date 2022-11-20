@@ -38,16 +38,15 @@ class Database {
    * @return int 登録されたレコード数
   */
   public function insertInputData($data) {
-    $sql = "INSERT INTO contact(name, kana, tel, gender, email, confirmEmail, content)
-            VALUES(?, ?, ?, ?, ?, ?, ?);";
+    $sql = "INSERT INTO contact(name, kana, tel, gender, email, content)
+            VALUES(?, ?, ?, ?, ?, ?);";
     $stt = $this->db->prepare($sql);
     $stt->bindValue(1, $data['name']);
 		$stt->bindValue(2, $data['kana']);
 		$stt->bindValue(3, $data['tel']);
 		$stt->bindValue(4, $data['gender']);
 		$stt->bindValue(5, $data['email']);
-		$stt->bindValue(6, $data['confirmEmail']);
-		$stt->bindValue(7, $data['content']);
+		$stt->bindValue(6, $data['content']);
     $stt->execute();
     return $stt->rowCount();
   }

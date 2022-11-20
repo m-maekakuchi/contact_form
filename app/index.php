@@ -32,12 +32,13 @@
           ||
           !isset($_POST['confirmEmail'])
           ||
+          !isset($_POST['hobbys'])
+          ||
           !isset($_POST['content'])
         ) {
           header('Location: contact.php');
           exit();
         }
-        
         //入力データのエスケープ
         $name         = escape($_POST['name']);
         $kana         = escape($_POST['kana']);
@@ -46,10 +47,11 @@
         $confirmEmail = escape($_POST['confirmEmail']);
         $content      = escape($_POST['content']);
         $gender       = $_POST['gender'];
+        $hobbys       = $_POST['hobbys'];
 
         //入力データのバリデーション
         $val = new Validation();
-        $errorMsg = $val->validateForms($name, $kana, $tel, $gender, $email, $confirmEmail, $content);
+        $errorMsg = $val->validateForms($name, $kana, $tel, $gender, $email, $confirmEmail, $hobbys, $hobbyAry, $content);
 
         // $inputName         = !isset($errorMsg['name']) ? $name : "";
         // $inputKana         = !isset($errorMsg['kana']) ? $kana : "";
@@ -65,29 +67,25 @@
         $inputData['name']         = !isset($errorMsg['name']) ? $name : "";
         $inputData['kana']         = !isset($errorMsg['kana']) ? $kana : "";
         $inputData['tel']          = !isset($errorMsg['tel']) ? $tel : "";
-        $inputData['gender']       = !isset($errorMsg['gender']) ? $gender : "1";
+        $inputData['gender']       = !isset($errorMsg['gender']) ? $gender : "";
         $inputData['email']        = !isset($errorMsg['email']) ? $email : "";
         $inputData['confirmEmail'] = !isset($errorMsg['confirmEmail']) ? $confirmEmail : "";
+        $inputData['hobbys']       = !isset($errorMsg['hobby']) ? $hobbys : "";
         $inputData['content']      = !isset($errorMsg['content']) ? $content : "";
         
         $_SESSION['inputData'] = $inputData;
         $_SESSION['errorMsg'] = $errorMsg;
 
         if (count($errorMsg) === 0) {
-          //選択されたラジオボタンによって、確認画面で表示する文字を変数に代入
-          if ($inputData['gender'] === '1') {
-            $_SESSION['confirmGender'] = '男性';
-          } else {
-            $_SESSION['confirmGender'] = '女性';
-          }
           //改行コードを変換した文字列を変数に代入
           $_SESSION['confirmContent'] = str_replace("\n", "<br>", $inputData['content']);
 
           header('Location: confirm.php');
           exit();
         } else {
-          header('Location: contact.php');
-          exit();
+          // header('Location: contact.php');
+          // exit();
+          require_once('contact.php');
         }
       } else if ($btn === "toComplete") {
         //POSTされたトークンを取得

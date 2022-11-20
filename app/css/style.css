@@ -71,6 +71,12 @@ input:focus[type="text"], textarea:focus{
   padding-right: 50px; 
 }
 
+#hobby label {
+  display: block;
+  float: left;
+  width: 140px;
+}
+
 a {
   text-decoration: none;
 }
