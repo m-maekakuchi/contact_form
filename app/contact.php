@@ -131,7 +131,8 @@
         <div class="item-column">
           <div id="hobby">
             <?= getHtmlHobbyValue($hobbyAry); ?>
-          </div>  
+          </div>
+          <?= isset($errorMsg['hobby']) ? "<span class ='error'>{$errorMsg['hobby']}</span>" : "" ?>
         </select>
         </div>
       </div>

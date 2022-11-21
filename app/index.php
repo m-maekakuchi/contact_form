@@ -73,8 +73,8 @@
         $inputData['hobbys']       = !isset($errorMsg['hobby']) ? $hobbys : "";
         $inputData['content']      = !isset($errorMsg['content']) ? $content : "";
         
-        $_SESSION['inputData'] = $inputData;
-        $_SESSION['errorMsg'] = $errorMsg;
+        $_SESSION['inputData']     = $inputData;
+        $_SESSION['errorMsg']      = $errorMsg;
 
         if (count($errorMsg) === 0) {
           //改行コードを変換した文字列を変数に代入
@@ -83,9 +83,8 @@
           header('Location: confirm.php');
           exit();
         } else {
-          // header('Location: contact.php');
-          // exit();
-          require_once('contact.php');
+          header('Location: contact.php');
+          exit();
         }
       } else if ($btn === "toComplete") {
         //POSTされたトークンを取得
