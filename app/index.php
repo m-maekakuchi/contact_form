@@ -32,8 +32,6 @@
           ||
           !isset($_POST['confirmEmail'])
           ||
-          !isset($_POST['hobbys'])
-          ||
           !isset($_POST['content'])
         ) {
           header('Location: contact.php');
@@ -47,8 +45,8 @@
         $confirmEmail = escape($_POST['confirmEmail']);
         $content      = escape($_POST['content']);
         $gender       = $_POST['gender'];
-        $hobbys       = $_POST['hobbys'];
-
+        $hobbys       = isset($_POST['hobbys']) ? $_POST['hobbys'] : [];
+        var_dump($hobbys);
         //入力データのバリデーション
         $val = new Validation();
         $errorMsg = $val->validateForms($name, $kana, $tel, $gender, $email, $confirmEmail, $hobbys, $hobbyAry, $content);
@@ -79,12 +77,12 @@
         if (count($errorMsg) === 0) {
           //改行コードを変換した文字列を変数に代入
           $_SESSION['confirmContent'] = str_replace("\n", "<br>", $inputData['content']);
-
           header('Location: confirm.php');
           exit();
         } else {
-          header('Location: contact.php');
-          exit();
+          // header('Location: contact.php');
+          // exit();
+          require_once('contact.php');
         }
       } else if ($btn === "toComplete") {
         //POSTされたトークンを取得
@@ -97,11 +95,16 @@
         $inputData = $_SESSION['inputData'];
         if($postToken !== "" && $postToken === $sessionToken) {
           $db = new Database();
-          $insertRow = $db->insertInputData($inputData);
+          $newId = $db->insertInputData($inputData);
+          if (count($inputData['hobbys']) > 0) {
+            getIdHobbysArray($newId, $inputData['hobbys']);
+          } 
+          
         }
 
-        header('Location: complete.php');
-        exit();
+        // header('Location: complete.php');
+        // exit();
+        require_once('complete.php');
       } else if ($btn === "back") {
         $_SESSION = array();
         session_destroy();
@@ -110,8 +113,9 @@
         exit();
       }
     } else {
-      header('Location: contact.php');
-      exit();
+      // header('Location: contact.php');
+      // exit();
+      require_once('contact.php');
     }
   } catch (PDOException $e) {
     die ("データベースエラー:{$e->getMessage()}");

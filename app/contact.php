@@ -1,7 +1,7 @@
 <?php
-  session_start();
+  // session_start();
   require_once('utilities/functions.php');
-  
+
   if (isset($_SESSION['inputData'])) {
     $inputData = $_SESSION['inputData'];
   }
