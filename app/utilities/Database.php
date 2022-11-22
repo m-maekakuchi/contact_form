@@ -35,9 +35,9 @@ class Database {
    *
    * @param array $data 入力されたデータ
    *
-   * @return int 登録されたレコード数
+   * @return int 最新のid値
   */
-  public function insertInputData($data) {
+  public function insertContent($data) {
     $sql = "INSERT INTO contact(name, kana, tel, gender, email, content)
             VALUES(?, ?, ?, ?, ?, ?);";
     $stt = $this->db->prepare($sql);
@@ -54,21 +54,15 @@ class Database {
   /**
    * hobbys表に入力データを登録するメソッド
    *
-   * @param array $hobbys 選択された趣味
+   * @param array $str INSERT文の値の文字列
    *
    * @return int 登録されたレコード数
   */
-  // public function insertInputData($data) {
-  //   $sql = "INSERT INTO contact(name, kana, tel, gender, email, content)
-  //           VALUES(?, ?, ?, ?, ?, ?);";
-  //   $stt = $this->db->prepare($sql);
-  //   $stt->bindValue(1, $data['name']);
-	// 	$stt->bindValue(2, $data['kana']);
-	// 	$stt->bindValue(3, $data['tel']);
-	// 	$stt->bindValue(4, $data['gender']);
-	// 	$stt->bindValue(5, $data['email']);
-	// 	$stt->bindValue(6, $data['content']);
-  //   $stt->execute();
-  //   return $stt->rowCount();
-  // }
+  public function insertHobbys($str) {
+    $sql = "INSERT INTO hobbys(hobby, contact_id)
+            VALUES {$str};";
+    $stt = $this->db->prepare($sql);
+    $stt->execute();
+    return $stt->rowCount();
+  }
 }

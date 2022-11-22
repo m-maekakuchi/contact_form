@@ -1,5 +1,5 @@
 <?php
-  session_start();
+  // session_start();
   $inputData = $_SESSION['inputData'];
 
   //二重送信防止用トークンの発行
@@ -40,6 +40,10 @@
       <div class="form-items item">
         <label class="label-item">メールアドレス&emsp;<span class="label-required">必須</span></label>
         <?= $inputData['email'] ?>
+      </div>
+      <div class="form-items item">
+        <label class="label-item">趣味</label>
+        <?= $_SESSION['confirmHobbys'] ?>
       </div>
       <div class="form-items item">
         <label class="label-item">お問い合わせ&emsp;<span class="label-required">必須</span></label>

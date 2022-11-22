@@ -46,7 +46,7 @@
         $content      = escape($_POST['content']);
         $gender       = $_POST['gender'];
         $hobbys       = isset($_POST['hobbys']) ? $_POST['hobbys'] : [];
-        var_dump($hobbys);
+
         //入力データのバリデーション
         $val = new Validation();
         $errorMsg = $val->validateForms($name, $kana, $tel, $gender, $email, $confirmEmail, $hobbys, $hobbyAry, $content);
@@ -75,10 +75,12 @@
         $_SESSION['errorMsg']      = $errorMsg;
 
         if (count($errorMsg) === 0) {
-          //改行コードを変換した文字列を変数に代入
+          //改行コードを変換した文字列を、セッションに登録
           $_SESSION['confirmContent'] = str_replace("\n", "<br>", $inputData['content']);
-          header('Location: confirm.php');
-          exit();
+          $_SESSION['confirmHobbys'] = count($inputData['hobbys']) > 0 ? getConfirmHpbbys($inputData['hobbys']) : "";
+          // header('Location: confirm.php');
+          // exit();
+          require_once('confirm.php');
         } else {
           // header('Location: contact.php');
           // exit();
@@ -93,13 +95,18 @@
         unset($_SESSION['token']);
 
         $inputData = $_SESSION['inputData'];
+
         if($postToken !== "" && $postToken === $sessionToken) {
-          $db = new Database();
-          $newId = $db->insertInputData($inputData);
+          $database = new Database();
+          $newId = $database->insertContent($inputData);
+          //趣味が1つ以上選択された場合
           if (count($inputData['hobbys']) > 0) {
-            getIdHobbysArray($newId, $inputData['hobbys']);
-          } 
-          
+            //二次元配列の生成
+            $idHobbysArray = getIdHobbysArray($newId, $inputData['hobbys']);
+            //バルクインサートのvalueの文字列を生成
+            $valueStr = getInsertValues($idHobbysArray);
+            $insertRowNum = $database->insertHobbys($valueStr);
+          }
         }
 
         // header('Location: complete.php');
