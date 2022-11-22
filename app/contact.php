@@ -1,5 +1,5 @@
 <?php
-  // session_start();
+  session_start();
   require_once('utilities/functions.php');
 
   if (isset($_SESSION['inputData'])) {
@@ -130,7 +130,7 @@
         <label class="label-item">趣味</label>
         <div class="item-column">
           <div id="hobby">
-            <?= getHtmlHobbyValue($hobbyAry); ?>
+            <?= isset($inputData['hobbys']) ? getHtmlHobby($inputData['hobbys']) : getHtmlHobby(array()); ?>
           </div>
           <?= isset($errorMsg['hobby']) ? "<span class ='error'>{$errorMsg['hobby']}</span>" : "" ?>
         </select>

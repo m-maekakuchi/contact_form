@@ -31,7 +31,7 @@ class Database {
   }
 
   /**
-   * contact表に入力データを登録するメソッド
+   * contact表にデータを登録するメソッド
    *
    * @param array $data 入力されたデータ
    *
@@ -39,7 +39,7 @@ class Database {
   */
   public function insertContent($data) {
     $sql = "INSERT INTO contact(name, kana, tel, gender, email, content)
-            VALUES(?, ?, ?, ?, ?, ?);";
+            VALUES(?, ?, ?, ?, ?, ?)";
     $stt = $this->db->prepare($sql);
     $stt->bindValue(1, $data['name']);
 		$stt->bindValue(2, $data['kana']);
@@ -52,9 +52,9 @@ class Database {
   }
 
   /**
-   * hobbys表に入力データを登録するメソッド
+   * hobbys表にデータを登録するメソッド
    *
-   * @param array $str INSERT文の値の文字列
+   * @param string $str INSERT文のVALUESの文字列
    *
    * @return int 登録されたレコード数
   */

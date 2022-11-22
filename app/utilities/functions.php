@@ -18,20 +18,25 @@ function escape($str)
 /**
  * 趣味の選択肢のhtmlを作成
  * 
- * @param array $array 配列
+ * @param array $array 選択された趣味の配列
  * 
  * @return string $str
  */
-function getHtmlHobbyValue($array, $) {
+function getHtmlHobby($array) {
   $str = "";
-  for ($i = 0; $i < count($array); $i++) {
-    $str .= "<label><input type='checkbox' name='hobbys[]' value='${array[$i]}'";
-    foreach ($array2 as $hobby) {
-      if (array[$i] === $hobby) {
-        $str .= "checked";
+  global $hobbyAry;
+  $aryLen = count($hobbyAry);
+  for ($i = 0; $i < $aryLen; $i++) {
+    $str .= "<label><input type='checkbox' name='hobbys[]' value='${hobbyAry[$i]}'";
+    //選択された趣味がある場合、checked属性を追加
+    if (count($array) > 0) {
+      foreach ($array as $hobby) {
+        if ($hobbyAry[$i] === $hobby) {
+          $str .= "checked";
+        }
       }
     }
-    $str .= ">${array[$i]}</label>";
+    $str .= ">${hobbyAry[$i]}</label>";
     if (($i+1) % 3 === 0) {
       $str .= "<br>";
     }
@@ -40,13 +45,14 @@ function getHtmlHobbyValue($array, $) {
 }
 
 /**
- * 確認画面用に趣味を改行コード<br>をつけた文字列に変換
+ * チェックボックスで選択された趣味の配列を
+ * 改行の<br>をつけた文字列に変換
  * 
- * @param array $array 配列
+ * @param array $array 選択された趣味の配列
  * 
  * @return string $str
  */
-function getConfirmHpbbys($array) {
+function getConfirmHobbys($array) {
   $aryLen = count($array);
   $str = "";
   for ($i = 0; $i < $aryLen; $i++) {
@@ -59,7 +65,8 @@ function getConfirmHpbbys($array) {
 }
 
 /**
- * const表のidと選択された趣味で二次元配列を生成
+ * const表のidと選択された趣味で
+ * 二次元配列を生成
  * 
  * @param int $id const表の最新のid
  *        array $array 配列
@@ -77,18 +84,18 @@ function getIdHobbysArray($id, $array) {
 /**
  * バルクインサートのvalueの文字列を生成
  * 
- * @param array $array 配列
+ * @param array $array 選択された趣味の配列
  * 
- * @return string $valueStr
+ * @return string $str
  */
 function getInsertValues($array) {
-  $valueStr = "";
+  $str = "";
   $aryLen = count($array);
   for ($i = 0; $i < $aryLen; $i++) {
-      $valueStr .= "('{$array[$i][0]}', {$array[$i][1]})";
+      $str .= "('{$array[$i][0]}', {$array[$i][1]})";
       if ($i !== $aryLen - 1) {
-        $valueStr .= ",";
+        $str .= ",";
       }
   }
-  return $valueStr;
+  return $str;
 }

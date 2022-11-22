@@ -1,5 +1,5 @@
 <?php
-  // session_start();
+  session_start();
   $inputData = $_SESSION['inputData'];
 
   //二重送信防止用トークンの発行

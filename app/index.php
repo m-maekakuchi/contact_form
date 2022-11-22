@@ -77,14 +77,12 @@
         if (count($errorMsg) === 0) {
           //改行コードを変換した文字列を、セッションに登録
           $_SESSION['confirmContent'] = str_replace("\n", "<br>", $inputData['content']);
-          $_SESSION['confirmHobbys'] = count($inputData['hobbys']) > 0 ? getConfirmHpbbys($inputData['hobbys']) : "";
-          // header('Location: confirm.php');
-          // exit();
-          require_once('confirm.php');
+          $_SESSION['confirmHobbys'] = count($inputData['hobbys']) > 0 ? getConfirmHobbys($inputData['hobbys']) : "";
+          header('Location: confirm.php');
+          exit();
         } else {
-          // header('Location: contact.php');
-          // exit();
-          require_once('contact.php');
+          header('Location: contact.php');
+          exit();
         }
       } else if ($btn === "toComplete") {
         //POSTされたトークンを取得
@@ -109,9 +107,8 @@
           }
         }
 
-        // header('Location: complete.php');
-        // exit();
-        require_once('complete.php');
+        header('Location: complete.php');
+        exit();
       } else if ($btn === "back") {
         $_SESSION = array();
         session_destroy();
@@ -120,9 +117,8 @@
         exit();
       }
     } else {
-      // header('Location: contact.php');
-      // exit();
-      require_once('contact.php');
+      header('Location: contact.php');
+      exit();
     }
   } catch (PDOException $e) {
     die ("データベースエラー:{$e->getMessage()}");
