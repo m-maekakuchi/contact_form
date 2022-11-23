@@ -35,7 +35,7 @@ class Database {
    *
    * @param array $data 入力されたデータ
    *
-   * @return int 最新のid値
+   * @return string 最新のid値
   */
   public function insertContent($data) {
     $sql = "INSERT INTO contact(name, kana, tel, gender, email, content)

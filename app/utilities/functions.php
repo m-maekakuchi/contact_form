@@ -99,8 +99,8 @@ function getConfirmHobbys($array)
  * const表のidと選択された趣味で
  * 二次元配列を生成
  * 
- * @param int $id const表の最新のid
- *        array $array 選択された趣味の配列
+ * @param string $id    const表の最新のid
+ *        array  $array 選択された趣味の配列
  * 
  * @return array 二次元配列
  */
