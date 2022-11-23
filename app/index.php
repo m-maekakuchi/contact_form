@@ -59,8 +59,6 @@
         $email        = escape($_POST['email']);
         $confirmEmail = escape($_POST['confirmEmail']);
         $content      = escape($_POST['content']);
-        $gender       = $_POST['gender'];
-        $hobbys       = isset($_POST['hobbys']) ? $_POST['hobbys'] : [];
 
         //入力データのバリデーション
         $val = new Validation();
@@ -80,11 +78,12 @@
         $inputData['name']         = !isset($errorMsg['name']) ? $name : "";
         $inputData['kana']         = !isset($errorMsg['kana']) ? $kana : "";
         $inputData['tel']          = !isset($errorMsg['tel']) ? $tel : "";
-        $inputData['gender']       = !isset($errorMsg['gender']) ? $gender : "";
         $inputData['email']        = !isset($errorMsg['email']) ? $email : "";
         $inputData['confirmEmail'] = !isset($errorMsg['confirmEmail']) ? $confirmEmail : "";
-        $inputData['hobbys']       = !isset($errorMsg['hobby']) ? $hobbys : "";
         $inputData['content']      = !isset($errorMsg['content']) ? $content : "";
+        $inputData['gender']       = $_POST['gender'];
+        $inputData['hobbys']       = $_POST['hobbys'] ?? [];
+        
         
         $_SESSION['inputData']     = $inputData;
         $_SESSION['errorMsg']      = $errorMsg;
@@ -102,9 +101,9 @@
         }
       } else if ($btn === "toComplete") {
         //POSTされたトークンを取得
-        $postToken = isset($_POST['token']) ? $_POST["token"] : "";
+        $postToken = $_POST['token'] ?? "";
         //セッション変数のトークンを取得
-        $sessionToken = isset($_SESSION['token']) ? $_SESSION['token'] : "";
+        $sessionToken = $_SESSION['token'] ?? "";
         //セッション変数のトークンを削除
         unset($_SESSION['token']);
 
