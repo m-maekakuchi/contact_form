@@ -16,7 +16,8 @@
       $btn = $_GET['btn'];
     }
 
-    //正しいパラメータ名で受け取れなかった場合はお問い合わせフォームにリダイレクト
+    //テキスト欄の正しいパラメータ名やラジオボタンの正しいvalue値を
+    //受け取れなかった場合お問い合わせフォームにリダイレクト
     if (!empty($btn)) {
       if ($btn === "toConfirm") {
         if (
@@ -33,10 +34,24 @@
           !isset($_POST['confirmEmail'])
           ||
           !isset($_POST['content'])
+          ||
+          $_POST['gender'] !== '男' && $_POST['gender'] !== '女'
         ) {
           header('Location: contact.php');
           exit();
         }
+        //チェックボックスが選択されていて、不正なvalue値を含んでいた場合
+        if (count($_POST) === 9) {
+          if (
+            !isset($_POST['hobbys'])
+            ||
+            checkHobbysValues($_POST['hobbys'])
+          ) {
+            header('Location: contact.php');
+            exit();
+          }
+        }
+
         //入力データのエスケープ
         $name         = escape($_POST['name']);
         $kana         = escape($_POST['kana']);
@@ -49,7 +64,7 @@
 
         //入力データのバリデーション
         $val = new Validation();
-        $errorMsg = $val->validateForms($name, $kana, $tel, $gender, $email, $confirmEmail, $hobbys, $hobbyAry, $content);
+        $errorMsg = $val->validateForms($name, $kana, $tel, $email, $confirmEmail, $content);
 
         // $inputName         = !isset($errorMsg['name']) ? $name : "";
         // $inputKana         = !isset($errorMsg['kana']) ? $kana : "";
@@ -77,6 +92,7 @@
         if (count($errorMsg) === 0) {
           //改行コードを変換した文字列を、セッションに登録
           $_SESSION['confirmContent'] = str_replace("\n", "<br>", $inputData['content']);
+          //趣味の配列を、改行を含んだ文字列に変換してセッションに登録
           $_SESSION['confirmHobbys'] = count($inputData['hobbys']) > 0 ? getConfirmHobbys($inputData['hobbys']) : "";
           header('Location: confirm.php');
           exit();

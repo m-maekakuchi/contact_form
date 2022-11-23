@@ -4,7 +4,7 @@
 $hobbyAry = ['ゲーム', '読書', 'スポーツ', '旅行', '映画鑑賞', '音楽鑑賞', 'キャンプ', 'アニメ/漫画', '料理'];
 
 /**
- * XSS(クロスサイト・スクリプティング)対策として、特殊文字をエスケープ
+ * XSS(クロスサイト・スクリプティング)対策として、特殊文字をエスケープするメソッド
  * 
  * @param string $str 文字列
  * 
@@ -16,13 +16,43 @@ function escape($str)
 }
 
 /**
+ * チェックボックスのhobbysが不正な値を含んでいないか判定するメソッド
+ * 
+ * @param array $array 選択された趣味の配列
+ * 
+ * @return boolean
+ */
+function checkHobbysValues($array) 
+{
+  global $hobbyAry;
+  if(count($array) > 0) {
+    foreach ($array as $str) {
+      $correctNum = 0;
+      foreach ($hobbyAry as $hobby) {
+        if ($str === $hobby) {
+        $correctNum++; 
+        }
+      }
+      //選択された趣味のvalue値がhobbyAry配列にない場合
+      if($correctNum === 0) {
+        return true;
+      }
+    }
+    return false;
+  } else {
+    return false;
+  }
+}
+
+/**
  * 趣味の選択肢のhtmlを作成
  * 
  * @param array $array 選択された趣味の配列
  * 
  * @return string $str
  */
-function getHtmlHobby($array) {
+function getHtmlHobby($array)
+{
   $str = "";
   global $hobbyAry;
   $aryLen = count($hobbyAry);
@@ -52,7 +82,8 @@ function getHtmlHobby($array) {
  * 
  * @return string $str
  */
-function getConfirmHobbys($array) {
+function getConfirmHobbys($array)
+{
   $aryLen = count($array);
   $str = "";
   for ($i = 0; $i < $aryLen; $i++) {
@@ -69,11 +100,12 @@ function getConfirmHobbys($array) {
  * 二次元配列を生成
  * 
  * @param int $id const表の最新のid
- *        array $array 配列
+ *        array $array 選択された趣味の配列
  * 
  * @return array 二次元配列
  */
-function getIdHobbysArray($id, $array) {
+function getIdHobbysArray($id, $array)
+{
   $newAry = [];
   for ($i = 0; $i < count($array); $i++) {
     $newAry[$i] = [$array[$i], $id];
@@ -88,7 +120,8 @@ function getIdHobbysArray($id, $array) {
  * 
  * @return string $str
  */
-function getInsertValues($array) {
+function getInsertValues($array)
+{
   $str = "";
   $aryLen = count($array);
   for ($i = 0; $i < $aryLen; $i++) {
