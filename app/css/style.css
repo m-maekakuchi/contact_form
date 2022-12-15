@@ -1,9 +1,8 @@
 .container {
   font-family: "Hiragino Kaku Gothic ProN";
   font-size: 20px;
-  color: #5f5d60;
-  width: 800px;
-  margin: 0 auto;
+  color: hsl(280, 2%, 37%);
+  width: 100%;
 }
 
 .msg-wrapper {
@@ -24,23 +23,15 @@
   border-bottom: 2px solid #d3d3d3;
 }
 
-.item-pair {
-  display: flex;
-  flex-direction: column;
-}
-
-.item {
+.item-column {
   padding: 20px 0;
   display: flex;
-}
-
-.item-column {
-  display: flex;
   flex-direction: column;
 }
 
-.label-item {
- width: 300px;
+.item-name {
+  margin-bottom: 8px;
+  font-weight: bold;
 }
 
 .error {
@@ -52,6 +43,8 @@
   color: red;
   border: solid  0.5px red;
   font-size: 16px;
+  vertical-align: text-top;
+  font-weight: normal;
 }
 
 input,
@@ -94,4 +87,24 @@ a {
 
 .btn:hover {
   opacity: 0.8;
+}
+
+@media screen and (min-width: 481px) {
+  .container {
+    width: 50%;
+    margin: 0 auto;
+  }
+  .btn {
+    padding: 10px 60px;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .container {
+    width: 50%;
+    margin: 0 auto;
+  }
+  .btn {
+    padding: 10px 100px;
+  }
 }
