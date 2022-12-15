@@ -64,17 +64,6 @@
         $val = new Validation();
         $errorMsg = $val->validateForms($name, $kana, $tel, $email, $confirmEmail, $content);
 
-        // $inputName         = !isset($errorMsg['name']) ? $name : "";
-        // $inputKana         = !isset($errorMsg['kana']) ? $kana : "";
-        // $inputTel          = !isset($errorMsg['tel']) ? $tel : "";
-        // $inputGender       = !isset($errorMsg['gender']) ? $gender : "1";
-        // $inputEmail        = !isset($errorMsg['email']) ? $email : "";
-        // $inputConfirmEmail = !isset($errorMsg['confirmEmail']) ? $confirmEmail : "";
-        // $inputContent      = !isset($errorMsg['content']) ? $content : "";
-        // $model = new ContactModel($inputName, $inputKana, $inputTel, $inputGender, $inputEmail, $inputConfirmEmail, $inputContent);
-        // $_SESSION['model'] = serialize($model);
-        // echo $model->getName();
-
         $inputData['name']         = !isset($errorMsg['name']) ? $name : "";
         $inputData['kana']         = !isset($errorMsg['kana']) ? $kana : "";
         $inputData['tel']          = !isset($errorMsg['tel']) ? $tel : "";
@@ -82,8 +71,7 @@
         $inputData['confirmEmail'] = !isset($errorMsg['confirmEmail']) ? $confirmEmail : "";
         $inputData['content']      = !isset($errorMsg['content']) ? $content : "";
         $inputData['gender']       = $_POST['gender'];
-        $inputData['hobbys']       = $_POST['hobbys'] ?? [];
-        
+        $inputData['hobbys']       = isset($_POST['hobbys']) ? $_POST['hobbys'] : [];
         
         $_SESSION['inputData']     = $inputData;
         $_SESSION['errorMsg']      = $errorMsg;
@@ -101,9 +89,9 @@
         }
       } else if ($btn === "toComplete") {
         //POSTされたトークンを取得
-        $postToken = $_POST['token'] ?? "";
+        $postToken = isset($_POST['token']) ? $_POST['token'] : "";
         //セッション変数のトークンを取得
-        $sessionToken = $_SESSION['token'] ?? "";
+        $sessionToken = isset($_SESSION['token']) ? $_SESSION['token'] : "";
         //セッション変数のトークンを削除
         unset($_SESSION['token']);
 

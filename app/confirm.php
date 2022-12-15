@@ -1,8 +1,12 @@
 <?php
   session_start();
   $inputData = $_SESSION['inputData'];
+  unset($inputData['confirmEmail']);
+  unset($inputData['hobbys']);
+  // JSONの文字コードはUnicodeのため、変換されないようにオプション指定
+  echo json_encode($inputData, JSON_UNESCAPED_UNICODE);
 
-  //二重送信防止用トークンの発行
+  // 二重送信防止用トークンの発行
   $token = uniqid('', true);
   $_SESSION['token'] = $token;
 ?>
