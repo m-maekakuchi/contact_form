@@ -4,7 +4,6 @@
   require_once('utilities/Validation.php');
   require_once('utilities/Message.php');
   require_once('utilities/Database.php');
-  require_once('utilities/ContactModel.php');
   require_once('utilities/functions.php');
 
   try {

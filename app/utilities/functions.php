@@ -87,10 +87,10 @@ function getConfirmHobbys($array)
   $aryLen = count($array);
   $str = "";
   for ($i = 0; $i < $aryLen; $i++) {
-      $str .= "{$array[$i]}";
-      if ($i !== $aryLen - 1) {
-        $str .= "<br>";
-      }
+    $str .= "{$array[$i]}";
+    if ($i !== $aryLen - 1) {
+      $str .= "<br>";
+    }
   }
   return $str;
 }
@@ -125,10 +125,10 @@ function getInsertValues($array)
   $str = "";
   $aryLen = count($array);
   for ($i = 0; $i < $aryLen; $i++) {
-      $str .= "('{$array[$i][0]}', {$array[$i][1]})";
-      if ($i !== $aryLen - 1) {
-        $str .= ",";
-      }
+    $str .= "('{$array[$i][0]}', {$array[$i][1]})";
+    if ($i !== $aryLen - 1) {
+      $str .= ",";
+    }
   }
   return $str;
 }
