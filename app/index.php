@@ -20,20 +20,13 @@
     if (!empty($btn)) {
       if ($btn === "toConfirm") {
         if (
-          !isset($_POST['name'])
-          ||
-          !isset($_POST['kana'])
-          || 
-          !isset($_POST['tel'])
-          ||
-          !isset($_POST['gender'])
-          ||
-          !isset($_POST['email'])
-          ||
-          !isset($_POST['confirmEmail'])
-          ||
-          !isset($_POST['content'])
-          ||
+          !isset($_POST['name']) ||
+          !isset($_POST['kana']) || 
+          !isset($_POST['tel']) ||
+          !isset($_POST['gender']) ||
+          !isset($_POST['email']) ||
+          !isset($_POST['confirmEmail']) ||
+          !isset($_POST['content']) ||
           $_POST['gender'] !== '男' && $_POST['gender'] !== '女'
         ) {
           header('Location: contact.php');
@@ -42,8 +35,7 @@
         //チェックボックスが選択されていて、不正なvalue値を含んでいた場合
         if (count($_POST) === 9) {
           if (
-            !isset($_POST['hobbys'])
-            ||
+            !isset($_POST['hobbys']) ||
             checkHobbysValues($_POST['hobbys'])
           ) {
             header('Location: contact.php');
@@ -77,7 +69,7 @@
 
         if (count($errorMsg) === 0) {
           //改行コードを変換した文字列を、セッションに登録
-          $_SESSION['confirmContent'] = str_replace("\n", "<br>", $inputData['content']);
+          $_SESSION['confirmContent'] = nl2br($inputData['content']);
           //趣味の配列を、改行を含んだ文字列に変換してセッションに登録
           $_SESSION['confirmHobbys'] = count($inputData['hobbys']) > 0 ? getConfirmHobbys($inputData['hobbys']) : "";
           header('Location: confirm.php');
